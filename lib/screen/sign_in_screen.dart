@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sights_app/style/extensions.dart';
 import 'package:sights_app/style/text_styles.dart';
+import 'package:sights_app/widget/custom_button.dart';
 import 'package:sights_app/widget/custom_text_field.dart';
 
 class SignInScreen extends StatelessWidget {
@@ -21,18 +22,37 @@ class SignInScreen extends StatelessWidget {
                 style: context.textSubtitle,
               ),
               const SizedBox(height: 40),
-              CustomTextField(placeholder: "Email"),
+              const CustomTextField(placeholder: "Email"),
               const SizedBox(height: 20),
-              CustomTextField(placeholder: "Password"),
-              Text(
-                "Forgot password?",
-                style: context.textSubtitle,
+              const CustomTextField(placeholder: "Password"),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Text(
+                    "Forgot password?",
+                    style: context.textSubtitle.copyWith(fontSize: 14),
+                  ),
+                ],
               ),
-              ElevatedButton(
-                onPressed: () {},
-                child: Text("Sign in"),
-              ),
-              Text("Don't have an account? Sign up")
+              const SizedBox(height: 30),
+              const CustomButton(),
+              const SizedBox(height: 50),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Don't have an account?",
+                    style: context.textSubtitle,
+                  ),
+                  TextButton(
+                    onPressed: () {},
+                    child: Text(
+                      "Sign up",
+                      style: context.textSubtitle,
+                    ),
+                  )
+                ],
+              )
             ],
           ),
         ),
