@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sights_app/style/extensions.dart';
 import 'package:sights_app/style/text_styles.dart';
+import 'package:sights_app/widget/custom_action_button.dart';
 import 'package:sights_app/widget/custom_text_field.dart';
 
 class SignInScreen extends StatelessWidget {
@@ -24,15 +25,34 @@ class SignInScreen extends StatelessWidget {
               CustomTextField(placeholder: "Email"),
               const SizedBox(height: 20),
               CustomTextField(placeholder: "Password"),
-              Text(
-                "Forgot password?",
-                style: context.textSubtitle,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Text(
+                    "Forgot password?",
+                    style: context.textLabel,
+                  ),
+                ],
               ),
-              ElevatedButton(
-                onPressed: () {},
-                child: Text("Sign in"),
+              const SizedBox(height: 30),
+              CustomActionButton(),
+              const SizedBox(height: 30),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Don't have an account?",
+                    style: context.textSubtitle,
+                  ),
+                  TextButton(
+                    onPressed: () {},
+                    child: Text(
+                      "Sign up.",
+                      style: context.textSubtitle.copyWith(color: context.colorLink),
+                    ),
+                  ),
+                ],
               ),
-              Text("Don't have an account? Sign up")
             ],
           ),
         ),
