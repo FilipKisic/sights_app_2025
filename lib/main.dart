@@ -1,8 +1,11 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:sights_app/screen/sign_in_screen.dart';
-import 'package:sights_app/style/app_theme.dart';
+import 'package:sights_app/presentation/screen/sign_in_screen.dart';
+import 'package:sights_app/presentation/style/app_theme.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:sights_app/style/extensions.dart';
-import 'package:sights_app/style/text_styles.dart';
-import 'package:sights_app/widget/custom_action_button.dart';
-import 'package:sights_app/widget/custom_text_field.dart';
+import 'package:sights_app/presentation/style/extensions.dart';
+import 'package:sights_app/presentation/style/text_styles.dart';
+import 'package:sights_app/presentation/widget/custom_action_button.dart';
+import 'package:sights_app/presentation/widget/custom_text_field.dart';
 
 class SignInScreen extends StatelessWidget {
   const SignInScreen({super.key});

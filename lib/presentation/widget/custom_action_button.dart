@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:sights_app/screen/sign_in_screen.dart';
-import 'package:sights_app/style/colors.dart';
-import 'package:sights_app/style/extensions.dart';
+import 'package:sights_app/presentation/screen/sign_in_screen.dart';
+import 'package:sights_app/presentation/style/colors.dart';
+import 'package:sights_app/presentation/style/extensions.dart';
 
 class CustomActionButton extends StatelessWidget {
   const CustomActionButton({super.key});
