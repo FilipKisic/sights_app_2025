@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:sights_app/presentation/screen/sign_in_screen.dart';
-import 'package:sights_app/presentation/style/colors.dart';
 import 'package:sights_app/presentation/style/extensions.dart';
 
 class CustomActionButton extends StatelessWidget {
-  const CustomActionButton({super.key});
+  final VoidCallback onPressed;
+
+  const CustomActionButton({super.key, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,7 @@ class CustomActionButton extends StatelessWidget {
           backgroundColor: Colors.transparent,
           shadowColor: Colors.transparent,
         ),
-        onPressed: () {},
+        onPressed: onPressed,
         child: Text(
           "Sign in",
           style: context.textButton,

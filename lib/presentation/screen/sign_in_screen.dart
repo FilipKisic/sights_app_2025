@@ -1,15 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sights_app/di.dart';
 import 'package:sights_app/presentation/style/extensions.dart';
-import 'package:sights_app/presentation/style/text_styles.dart';
 import 'package:sights_app/presentation/widget/custom_action_button.dart';
 import 'package:sights_app/presentation/widget/custom_text_field.dart';
 
-class SignInScreen extends StatelessWidget {
+class SignInScreen extends ConsumerStatefulWidget {
   const SignInScreen({super.key});
 
   @override
+  ConsumerState<SignInScreen> createState() => _SignInScreenState();
+}
+
+class _SignInScreenState extends ConsumerState<SignInScreen> {
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+
+  @override
   Widget build(BuildContext context) {
+    final state = ref.watch(authenticationNotifierProvider);
+
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(20.0),
@@ -22,9 +34,9 @@ class SignInScreen extends StatelessWidget {
                 style: context.textSubtitle,
               ),
               const SizedBox(height: 40),
-              CustomTextField(placeholder: "Email"),
+              CustomTextField(placeholder: "Email", controller: emailController),
               const SizedBox(height: 20),
-              CustomTextField(placeholder: "Password"),
+              CustomTextField(placeholder: "Password", controller: passwordController),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
@@ -35,7 +47,16 @@ class SignInScreen extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 30),
-              CustomActionButton(),
+              CustomActionButton(
+                onPressed: () {
+                  print("Email: ${emailController.text}");
+                  print("Password: ${passwordController.text}");
+                  ref.read(authenticationNotifierProvider.notifier).signIn(
+                        emailController.text,
+                        passwordController.text,
+                      );
+                },
+              ),
               const SizedBox(height: 30),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
