@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sights_app/presentation/style/colors.dart';
+import 'package:sights_app/presentation/core/style/colors.dart';
 
 final lightTheme = ThemeData(
   colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),

@@ -3,8 +3,8 @@ import 'package:sights_app/data/client/firebase_auth_client.dart';
 import 'package:sights_app/data/repository/user_repository_impl.dart';
 import 'package:sights_app/domain/repository/user_repository.dart';
 import 'package:sights_app/domain/usecase/user_sign_in_use_case.dart';
-import 'package:sights_app/presentation/notifier/authentication_notifier.dart';
-import 'package:sights_app/presentation/notifier/state/authentication_state.dart';
+import 'package:sights_app/presentation/auth/notifier/authentication_notifier.dart';
+import 'package:sights_app/presentation/auth/notifier/state/authentication_state.dart';
 
 final firebaseAuthClientProvider = Provider<FirebaseAuthClient>((_) => FirebaseAuthClient());
 

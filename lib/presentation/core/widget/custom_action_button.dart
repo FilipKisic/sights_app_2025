@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:sights_app/presentation/style/extensions.dart';
+import 'package:sights_app/presentation/core/style/extensions.dart';
 
 class CustomActionButton extends StatelessWidget {
+  final bool isLoading;
   final VoidCallback onPressed;
 
-  const CustomActionButton({super.key, required this.onPressed});
+  const CustomActionButton({super.key, required this.onPressed, this.isLoading = false});
 
   @override
   Widget build(BuildContext context) {
@@ -23,10 +24,12 @@ class CustomActionButton extends StatelessWidget {
           shadowColor: Colors.transparent,
         ),
         onPressed: onPressed,
-        child: Text(
-          "Sign in",
-          style: context.textButton,
-        ),
+        child: isLoading
+            ? const CircularProgressIndicator(color: Colors.white)
+            : Text(
+                "Sign in",
+                style: context.textButton,
+              ),
       ),
     );
   }

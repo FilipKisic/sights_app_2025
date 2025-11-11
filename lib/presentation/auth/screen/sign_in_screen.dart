@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sights_app/di.dart';
-import 'package:sights_app/presentation/style/extensions.dart';
-import 'package:sights_app/presentation/widget/custom_action_button.dart';
-import 'package:sights_app/presentation/widget/custom_text_field.dart';
+import 'package:sights_app/presentation/auth/notifier/state/authentication_state.dart';
+import 'package:sights_app/presentation/core/app_router.dart';
+import 'package:sights_app/presentation/core/style/extensions.dart';
+import 'package:sights_app/presentation/core/widget/custom_action_button.dart';
+import 'package:sights_app/presentation/auth/widget/custom_text_field.dart';
 
 class SignInScreen extends ConsumerStatefulWidget {
   const SignInScreen({super.key});
@@ -19,6 +21,16 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
   @override
   Widget build(BuildContext context) {
     final state = ref.watch(authenticationNotifierProvider);
+
+    ref.listen(authenticationNotifierProvider, (_, currentState) {
+      if (currentState is AuthenticatedState) {
+        Navigator.of(context).pushReplacementNamed(AppRouter.homeScreen);
+      }
+
+      if (currentState is ErrorState) {
+        ErrorSnackBar.show(context, 'There was an error');
+      }
+    });
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -48,9 +60,8 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
               ),
               const SizedBox(height: 30),
               CustomActionButton(
+                isLoading: state is LoadingState,
                 onPressed: () {
-                  print("Email: ${emailController.text}");
-                  print("Password: ${passwordController.text}");
                   ref.read(authenticationNotifierProvider.notifier).signIn(
                         emailController.text,
                         passwordController.text,
@@ -79,5 +90,53 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
         ),
       ),
     );
+  }
+}
+
+class ErrorSnackBar {
+  static void show(BuildContext context, String message) {
+    final snackBar = SnackBar(
+      content: Row(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: context.colorError,
+              shape: BoxShape.circle,
+            ),
+            child: const Icon(
+              Icons.info_outline,
+              color: Colors.white,
+              size: 20,
+            ),
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Text(
+              message,
+              style:  TextStyle(
+                color: context.colorError,
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
+        ],
+      ),
+      backgroundColor: Colors.white,
+      behavior: SnackBarBehavior.floating,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20),
+        side: BorderSide(
+          color: context.colorError,
+          width: 2,
+        ),
+      ),
+      margin: const EdgeInsets.all(16),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+      duration: const Duration(seconds: 4),
+    );
+
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 }
