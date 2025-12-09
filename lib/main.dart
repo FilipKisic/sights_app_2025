@@ -1,8 +1,13 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:sights_app/screen/sign_in_screen.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sights_app/presentation/core/app_router.dart';
+import 'package:sights_app/presentation/core/style/app_theme.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -12,14 +17,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-        fontFamily: 'Montserrat'
-      ),
-      home: const SignInScreen(),
+      theme: lightTheme,
+      initialRoute: AppRouter.splashScreen,
+      onGenerateRoute: AppRouter.generateRoute,
     );
   }
 }
-
-
