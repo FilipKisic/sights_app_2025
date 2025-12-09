@@ -15,8 +15,11 @@ class SignInScreen extends ConsumerStatefulWidget {
 }
 
 class _SignInScreenState extends ConsumerState<SignInScreen> {
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+
+  final RegExp REG_EXP_EMAIL = RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
 
   @override
   Widget build(BuildContext context) {
@@ -37,59 +40,91 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(20.0),
-          child: Column(
-            children: [
-              Image.asset("assets/images/sign_in_image.png", height: 275),
-              const SizedBox(height: 20),
-              Text(
-                "Please sign in to your account.",
-                style: context.textSubtitle,
-              ),
-              const SizedBox(height: 40),
-              CustomTextField(placeholder: "Email", controller: emailController),
-              const SizedBox(height: 20),
-              CustomTextField(placeholder: "Password", controller: passwordController),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Text(
-                    "Forgot password?",
-                    style: context.textLabel,
-                  ),
-                ],
-              ),
-              const SizedBox(height: 30),
-              CustomActionButton(
-                isLoading: state is LoadingState,
-                onPressed: () {
-                  ref.read(authenticationNotifierProvider.notifier).signIn(
-                        emailController.text,
-                        passwordController.text,
-                      );
-                },
-              ),
-              const SizedBox(height: 30),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "Don't have an account?",
-                    style: context.textSubtitle,
-                  ),
-                  TextButton(
-                    onPressed: () {},
-                    child: Text(
-                      "Sign up.",
-                      style: context.textSubtitle.copyWith(color: context.colorLink),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              children: [
+                Image.asset("assets/images/sign_in_image.png", height: 275),
+                const SizedBox(height: 20),
+                Text(
+                  "Please sign in to your account.",
+                  style: context.textSubtitle,
+                ),
+                const SizedBox(height: 40),
+                CustomTextField(
+                  placeholder: "Email",
+                  controller: _emailController,
+                  validator: isEmailValid,
+                ),
+                const SizedBox(height: 20),
+                CustomTextField(
+                  placeholder: "Password",
+                  controller: _passwordController,
+                  validator: isPasswordValid,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Text("Forgot password?", style: context.textLabel),
+                  ],
+                ),
+                const SizedBox(height: 30),
+                CustomActionButton(
+                  isLoading: state is LoadingState,
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      ref.read(authenticationNotifierProvider.notifier).signIn(
+                            _emailController.text,
+                            _passwordController.text,
+                          );
+                    }
+                  },
+                ),
+                const SizedBox(height: 30),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Don't have an account?",
+                      style: context.textSubtitle,
                     ),
-                  ),
-                ],
-              ),
-            ],
+                    TextButton(
+                      onPressed: () {},
+                      child: Text(
+                        "Sign up.",
+                        style: context.textSubtitle.copyWith(color: context.colorLink),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
     );
+  }
+
+  String? isEmailValid(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter your email';
+    }
+
+    if (!REG_EXP_EMAIL.hasMatch(value)) {
+      return 'Please enter a valid email';
+    }
+    return null;
+  }
+
+  String? isPasswordValid(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter your password';
+    }
+
+    if (value.length < 8) {
+      return 'Password must be at least 8 characters long';
+    }
+    return null;
   }
 }
 
@@ -114,7 +149,7 @@ class ErrorSnackBar {
           Expanded(
             child: Text(
               message,
-              style:  TextStyle(
+              style: TextStyle(
                 color: context.colorError,
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
