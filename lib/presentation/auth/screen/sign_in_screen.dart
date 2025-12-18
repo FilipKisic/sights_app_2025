@@ -61,6 +61,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                   placeholder: "Password",
                   controller: _passwordController,
                   validator: isPasswordValid,
+                  isPasswordType: true,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
