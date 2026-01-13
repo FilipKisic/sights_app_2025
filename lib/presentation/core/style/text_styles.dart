@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 
+const _titleTextStyle = TextStyle(fontSize: 36, fontWeight: FontWeight.bold);
 const _subtitleTextStyle = TextStyle(fontSize: 18, fontWeight: FontWeight.w600);
 const _textFieldTextStyle = TextStyle(fontSize: 18, fontWeight: FontWeight.w500);
 const _buttonTextStyle = TextStyle(fontSize: 18, fontWeight: FontWeight.bold);
 const _labelTextStyle = TextStyle(fontSize: 14, fontWeight: FontWeight.w500);
 
 extension CustomTextStyle on TextTheme {
+  TextStyle get titleTextStyle => _titleTextStyle;
   TextStyle get subtitleTextStyle => _subtitleTextStyle;
   TextStyle get textFieldTextStyle => _textFieldTextStyle;
   TextStyle get buttonTextStyle => _buttonTextStyle;
