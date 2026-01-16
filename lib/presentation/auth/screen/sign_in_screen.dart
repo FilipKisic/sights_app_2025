@@ -27,7 +27,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
 
     ref.listen(authenticationNotifierProvider, (_, currentState) {
       if (currentState is AuthenticatedState) {
-        Navigator.of(context).pushReplacementNamed(AppRouter.homeScreen);
+        Navigator.of(context).pushReplacementNamed(AppRouter.mainMenuScreen);
       }
 
       if (currentState is ErrorState) {

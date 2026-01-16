@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:sights_app/presentation/auth/screen/sign_in_screen.dart';
 import 'package:sights_app/presentation/auth/screen/splash_screen.dart';
 import 'package:sights_app/presentation/sights/screen/home_screen.dart';
+import 'package:sights_app/presentation/sights/screen/main_menu_screen.dart';
 
 class AppRouter {
   static const String splashScreen = '/';
   static const String signInScreen = '/signIn';
-  static const String homeScreen = '/home';
+  static const String mainMenuScreen = '/mainMenu';
 
   AppRouter._();
 
@@ -16,8 +17,8 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => const SplashScreen());
       case signInScreen:
         return MaterialPageRoute(builder: (_) => const SignInScreen());
-      case homeScreen:
-        return MaterialPageRoute(builder: (_) => const HomeScreen());
+      case mainMenuScreen:
+        return MaterialPageRoute(builder: (_) => const MainMenuScreen());
       default:
         throw Exception("Route not found...");
     }

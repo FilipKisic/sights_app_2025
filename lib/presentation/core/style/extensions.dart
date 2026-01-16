@@ -12,7 +12,14 @@ extension StyleExtensions on BuildContext {
   Color get colorCardText => Theme.of(this).extension<AppColors>()!.cardText!;
   Color get colorLink => Theme.of(this).extension<AppColors>()!.link!;
 
+  TextStyle get textTitle => Theme.of(this).textTheme.titleTextStyle;
   TextStyle get textSubtitle => Theme.of(this).textTheme.subtitleTextStyle;
   TextStyle get textButton => Theme.of(this).textTheme.buttonTextStyle.copyWith(color: Colors.white);
   TextStyle get textLabel => Theme.of(this).textTheme.labelTextStyle;
+
+  TextStyle get textCardTitle => Theme.of(this).textTheme.cardTitleTextStyle.copyWith(color: colorCardText);
+  TextStyle get textCardSubtitle => Theme.of(this).textTheme.cardSubtitleTextStyle.copyWith(color: colorCardText);
+  TextStyle get textCardLabel => Theme.of(this).textTheme.cardLabelTextStyle.copyWith(color: colorCardText);
+
+
 }
