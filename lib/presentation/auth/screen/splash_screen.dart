@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:sights_app/presentation/core/app_router.dart';
@@ -26,6 +27,8 @@ class SplashScreen extends StatelessWidget {
 
   void redirectToTheNextScreen(BuildContext context) async {
     await Future.delayed(const Duration(seconds: 2));
-    Navigator.of(context).pushReplacementNamed(AppRouter.signInScreen);
+    Navigator.of(context).pushReplacementNamed(isUserSignedIn() ? AppRouter.mainMenuScreen : AppRouter.signInScreen);
   }
- }
+
+  bool isUserSignedIn() => FirebaseAuth.instance.currentUser != null;
+}

@@ -25,13 +25,11 @@ class HomeScreen extends ConsumerWidget {
                     Expanded(child: Center(child: Lottie.asset('assets/animations/loading_sights.json', width: 70))),
                 SightListEmpty() => Expanded(child: Center(child: SightListStateWidget.empty())),
                 SightListFilled(sights: final sightList) => Expanded(
-                  child: Expanded(
-                    child: ListView.separated(
-                      itemCount: sightList.length,
-                      separatorBuilder: (context, index) => const SizedBox(height: 10),
-                      itemBuilder: (context, index) => SightCard(sightList[index]),
-                      shrinkWrap: true,
-                    ),
+                  child: ListView.separated(
+                    itemCount: sightList.length,
+                    separatorBuilder: (context, index) => const SizedBox(height: 10),
+                    itemBuilder: (context, index) => SightCard(sightList[index]),
+                    shrinkWrap: true,
                   ),
                 ),
                 SightListError(message: final errorMessage) =>
